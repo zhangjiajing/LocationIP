@@ -1,0 +1,15 @@
+{
+    "name": "zjj/location-ip",
+    "description": "支持高德、腾讯位置服务IP定位",
+    "authors": [
+        {
+            "name": "zjj",
+            "email": "838891990@qq.com"
+        }
+    ],
+    "require": {
+        "php": ">=7.0",
+        "guzzlehttp/guzzle": "^7.8",
+        "ext-json": "*"
+    }
+}
