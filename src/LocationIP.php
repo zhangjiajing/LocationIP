@@ -113,16 +113,31 @@ class LocationIP
             $body = $response->getBody()->getContents();
             $result = json_decode($body, true);
             if (1 == $result['status'] && $result['infocode'] == 10000) {
-                return [
-                    'code' => 1,
-                    'msg' => 'success',
-                    'data' => [
-                        'province' => $result['province'] ?? '',
-                        'city' => $result['city'] ?? '',
-                        'district' => '',
-                        'adcode' => $result['adcode'] ?? '',
-                    ]
-                ];
+
+                if (!$result['province']) {
+                    $msg = "高德IP定位数据返回异常，返回状态码={$result['infocode']}，错误信息=IP定位失败";
+                    return [
+                        'code' => 0,
+                        'msg' => $msg,
+                    ];
+                } elseif ($result['province'] == '局域网') {
+                    $msg = "高德IP定位数据返回异常，返回状态码={$result['infocode']}，错误信息=局域网IP";
+                    return [
+                        'code' => 0,
+                        'msg' => $msg,
+                    ];
+                } else {
+                    return [
+                        'code' => 1,
+                        'msg' => 'success',
+                        'data' => [
+                            'province' => $result['province'] ?: '',
+                            'city' => $result['city'] ?: '',
+                            'district' => '',
+                            'adcode' => $result['adcode'] ?: '',
+                        ]
+                    ];
+                }
             } else {
                 $msg = "高德IP定位数据返回异常，返回状态码={$result['infocode']}，错误信息={$result['info']}";
                 return [
