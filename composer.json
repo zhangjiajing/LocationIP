@@ -14,6 +14,11 @@
         "guzzlehttp/guzzle": "^6.3",
         "ext-json": "*"
     },
+    "autoload": {
+        "psr-4": {
+            "zjj\\": "src"
+        }
+    },
     "repositories": {
         "packagist": {
             "type": "composer",
